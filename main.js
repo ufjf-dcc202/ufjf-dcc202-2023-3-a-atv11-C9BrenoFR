@@ -1,13 +1,36 @@
 // main.js
-import {getLista} from getLista.js;
+import {adicionarNaLista, getLista, limparLista} from "./lista.js";
 
 const pEntrada = document.querySelector('#entrada');
-const olSaida = document.querySelector('#saida');
+const olSaida = document.querySelector('#itens');
 const btnAdicionar = document.querySelector('#adicionar');
 const btnLimpar = document.querySelector('#limpar');
 
-olSaida.innerHTML = "";
+btnLimpar.addEventListener('click', limparElementosLista);
+btnAdicionar.addEventListener('click', criaElementoNaLista);
 
-function atualizar(params) {
-    
+atualizarItensDaLista();
+
+function criaElementoNaLista(){
+    const texto = pEntrada.textContent;
+    adicionarNaLista(texto);
+    atualizarItensDaLista();
+    pEntrada.focus();
+}
+
+function limparElementosLista() {
+    limparLista();
+    atualizarItensDaLista();
+}
+
+
+function atualizarItensDaLista() {
+    olSaida.innerHTML = "";
+    const lista = getLista();
+    for(let i = 0; i < lista.length; i++){
+        const item = lista[i];
+        const li = document.createElement('li');
+        li.textContent = item;
+        olSaida.appendChild(li);
+    }
 }
